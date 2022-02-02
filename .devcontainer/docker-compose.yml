@@ -1,0 +1,28 @@
+version: "3"
+volumes:
+  php-volume:
+  php-database:
+services:
+  app:
+    build: ./docker/php
+    tty: true
+    depends_on:
+      - database
+    volumes:
+      - php-volume:/app
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=database
+      - DB_PORT=3306
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+  database:
+    build: ./docker/mariadb
+    volumes:
+      - php-database:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
