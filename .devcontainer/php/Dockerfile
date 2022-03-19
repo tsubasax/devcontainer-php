@@ -2,7 +2,7 @@ FROM php:7.4-cli-alpine
 
 ARG UID=1000
 ARG GID=1000
-ARG USER_NAME=vscode
+ARG USER_NAME=minteel
 
 # Install packages & set timezone
 RUN apk --update --no-cache add \
@@ -29,3 +29,5 @@ USER ${USER_NAME}
 
 # Create workspace
 WORKDIR /app
+
+RUN mkdir vendor

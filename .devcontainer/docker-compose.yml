@@ -1,15 +1,15 @@
 version: "3"
 volumes:
-  php-volume:
   php-database:
 services:
   app:
-    build: ./docker/php
+    build: ./php
     tty: true
     depends_on:
       - database
     volumes:
-      - php-volume:/app
+      - ../:/app
+      - /app/vendor
     environment:
       - DB_CONNECTION=mysql
       - DB_HOST=database
@@ -18,7 +18,7 @@ services:
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
   database:
-    build: ./docker/mariadb
+    build: ./mariadb
     volumes:
       - php-database:/var/lib/mysql
     environment:
